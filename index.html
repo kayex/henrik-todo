@@ -35,8 +35,14 @@
             font-family: "Lato", sans-serif;
         }
 
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         h1 {
-            margin: 0 0 8px;
+            margin: 0 0 .5rem;
             display: inline-block;
             font-size: 2.25rem;
             font-weight: 500;
@@ -59,17 +65,11 @@
         }
 
         .container {
-            margin-top: 2rem;
+            margin-top: 4.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 380px;
-        }
-
-        @media only screen and (min-width: 480px) {
-            .container {
-                margin-top: 4.5rem;
-            }
         }
 
         .card {
@@ -235,21 +235,45 @@
             opacity: 0;
             transform: translateY(-8px);
         }
+
+        @media only screen and (max-width: 480px) {
+            .container {
+                margin-top: .25rem;
+            }
+
+            .header > .underline {
+                display: none;
+            }
+
+            .header > h1 {
+                margin-bottom: 0;
+            }
+
+            .header > h3 {
+                margin-top: 0;
+            }
+
+            .list-container {
+                margin-top: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container" x-data="{input: '', todos: []}">
-<!--        <h1>TODO</h1>-->
-<!--        <div class="underline"></div>-->
-<!--        <template x-if="todos.length == 0">-->
-<!--            <h3>No items</h3>-->
-<!--        </template>-->
-<!--        <template x-if="todos.length == 1">-->
-<!--            <h3>1 item</h3>-->
-<!--        </template>-->
-<!--        <template x-if="todos.length > 1">-->
-<!--            <h3 x-text="todos.length + ' items'"></h3>-->
-<!--        </template>-->
+        <div class="header">
+            <h1>TODO</h1>
+            <div class="underline"></div>
+            <template x-if="todos.length == 0">
+                <h3>No items</h3>
+            </template>
+            <template x-if="todos.length == 1">
+                <h3>1 item</h3>
+            </template>
+            <template x-if="todos.length > 1">
+                <h3 x-text="todos.length + ' items'"></h3>
+            </template>
+        </div>
         <div class="card list-container">
             <template x-if="todos.length == 0">
                 <div class="empty-state">
