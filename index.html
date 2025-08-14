@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+
+    <title>TODOs</title>
+    <style>
+        :root {
+            --color-bg: #eee;
+            --color-card: #fff;
+            --color-primary: #282828;
+            --color-text: #202020;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            color: var(--color-text);
+        }
+
+        body {
+            background-color: var(--color-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Lato", sans-serif;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            display: inline-block;
+            font-size: 2.25rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+        }
+
+        .underline {
+            width: 150px;
+            height: 3px;
+            background-color: var(--color-primary);
+        }
+
+        .container {
+            margin-top: 4.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 380px;
+        }
+
+        .card {
+            border: 2px solid var(--color-primary);
+            border-radius: 16px;
+            background-color: var(--color-card);
+        }
+
+        .list {
+            width: 100%;
+            padding: 24px;
+            margin-top: 3.4375rem;
+            margin-bottom: 1.5rem;
+            min-height: 25rem;
+        }
+
+        .list__item {
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .list__item:last-of-type {
+            margin-bottom: 0;
+        }
+
+        .list__item > h2 {
+            margin: 0;
+            font-size: 1.125rem;
+            font-weight: normal;
+            letter-spacing: .03em;
+        }
+
+        .input {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            height: 3.125rem;
+            padding: 1rem 0.875rem 1rem 1rem;
+            border-radius: 16px;
+            background-color: var(--color-card);
+        }
+
+        input[type="text"] {
+            font-size: max(16px, 1rem);
+            font-weight: 500;
+            border: none;
+            caret-color: var(--color-text);
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        input[type="checkbox"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background-color: #fff;
+            margin: 0;
+            display: grid;
+            place-content: center;
+            font: inherit;
+            color: currentColor;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid currentColor;
+            border-radius: 0.125rem;
+            transform: translateY(-0.075rem);
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 0.65rem;
+            height: 0.65rem;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1rem 1rem var(--color-primary);
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        button, input[type="submit"], input[type="reset"] {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>TODO</h1>
+        <div class="underline"></div>
+        <div class="card list">
+            <div class="list__item">
+                <h2>Gå ut med Alice</h2>
+                <label><input type="checkbox" name="" /></label>
+            </div>
+            <div class="list__item">
+                <h2>Gå ut med Alice</h2>
+                <label><input type="checkbox" name="" /></label>
+            </div>
+            <div class="list__item">
+                <h2>Hoppa i sjön</h2>
+                <label><input checked type="checkbox" name="" /></label>
+            </div>
+        </div>
+        <div class="card input">
+            <label><input type="text" placeholder="Add TODO..."></label>
+            <button type="button">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.25 9.75V12.75C17.25 12.9489 17.171 13.1397 17.0303 13.2803C16.8897 13.421 16.6989 13.5 16.5 13.5H9.31031L10.2806 14.4694C10.3503 14.5391 10.4056 14.6218 10.4433 14.7128C10.481 14.8039 10.5004 14.9015 10.5004 15C10.5004 15.0985 10.481 15.1961 10.4433 15.2872C10.4056 15.3782 10.3503 15.4609 10.2806 15.5306C10.2109 15.6003 10.1282 15.6556 10.0372 15.6933C9.94613 15.731 9.84855 15.7504 9.75 15.7504C9.65145 15.7504 9.55387 15.731 9.46283 15.6933C9.37178 15.6556 9.28906 15.6003 9.21937 15.5306L6.96937 13.2806C6.89964 13.211 6.84432 13.1283 6.80658 13.0372C6.76884 12.9462 6.74941 12.8486 6.74941 12.75C6.74941 12.6514 6.76884 12.5538 6.80658 12.4628C6.84432 12.3717 6.89964 12.289 6.96937 12.2194L9.21937 9.96937C9.36011 9.82864 9.55098 9.74958 9.75 9.74958C9.94902 9.74958 10.1399 9.82864 10.2806 9.96937C10.4214 10.1101 10.5004 10.301 10.5004 10.5C10.5004 10.699 10.4214 10.8899 10.2806 11.0306L9.31031 12H15.75V9.75C15.75 9.55109 15.829 9.36032 15.9697 9.21967C16.1103 9.07902 16.3011 9 16.5 9C16.6989 9 16.8897 9.07902 17.0303 9.21967C17.171 9.36032 17.25 9.55109 17.25 9.75ZM21.75 5.25V18.75C21.75 19.1478 21.592 19.5294 21.3107 19.8107C21.0294 20.092 20.6478 20.25 20.25 20.25H3.75C3.35218 20.25 2.97064 20.092 2.68934 19.8107C2.40804 19.5294 2.25 19.1478 2.25 18.75V5.25C2.25 4.85218 2.40804 4.47064 2.68934 4.18934C2.97064 3.90804 3.35218 3.75 3.75 3.75H20.25C20.6478 3.75 21.0294 3.90804 21.3107 4.18934C21.592 4.47064 21.75 4.85218 21.75 5.25ZM20.25 18.75V5.25H3.75V18.75H20.25Z" fill="black"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
