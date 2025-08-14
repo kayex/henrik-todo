@@ -57,32 +57,41 @@
         }
 
         .card {
+            width: 100%;
             border: 2px solid var(--color-primary);
             border-radius: 16px;
             background-color: var(--color-card);
-            overflow-y: scroll;
         }
 
-        .list {
-            width: 100%;
-            padding: 24px;
+        .list-container {
             margin-top: 3.4375rem;
             margin-bottom: 1.5rem;
             height: 25.5rem;
+            overflow-y: scroll;
             scrollbar-width: none;
         }
 
+        .list {
+            padding: 24px;
+        }
+
         .empty-state {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .empty-state > h2 {
+            margin: 0;
             font-size: 1.5rem;
-            font-weight: 400;
-            letter-spacing: .03rem;
+            font-weight: 600;
+            /*letter-spacing: .03em;*/
             color: var(--color-text-muted);
         }
 
-        .list__item {
+        .list-item {
             display: flex;
             gap: .5rem;
             height: 1.375rem;
@@ -91,11 +100,11 @@
             align-items: center;
         }
 
-        .list__item:last-of-type {
+        .list-item:last-of-type {
             margin-bottom: 0;
         }
 
-        .list__item > h2 {
+        .list-item > h2 {
             margin: 0;
             font-size: 1.125rem;
             font-weight: 400;
@@ -111,8 +120,10 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            height: 3.125rem;
-            padding: 1rem 0.875rem 1rem 1rem;
+            height: 4.5rem;
+            padding: 1.5rem 1.375rem 1.5rem 1.5rem;
+            /*height: 3.125rem;*/
+            /*padding: 1rem 0.875rem 1rem 1rem;*/
             border-radius: 16px;
             background-color: var(--color-card);
         }
@@ -124,7 +135,9 @@
         input[type="text"] {
             width: 100%;
             font-size: max(16px, 1rem);
-            font-weight: 500;
+            /*font-size: max(18px, 1.125rem);*/
+            letter-spacing: .03em;
+            font-weight: 400;
             border: none;
             caret-color: var(--color-text);
         }
@@ -179,39 +192,63 @@
         .enter {
             transition: all 0.3s ease-out;
         }
+
         .enter-start {
             opacity: 0;
             transform: translateY(8px);
         }
+
         .enter-end {
             opacity: 1;
             transform: translateY(0);
         }
-    </style>
+
+        .leave {
+            transition-property: opacity, transform;
+            transition-duration: 200ms;
+            transition-timing-function: cubic-bezier(.4, 0, 1, 1);
+        }
+
+        .leave-start {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .leave-end {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
     </style>
 </head>
 <body>
     <div class="container" x-data="{input: '', todos: []}">
         <h1>TODO</h1>
         <div class="underline"></div>
-        <div class="card list">
-<!--            <template x-if="todos.length == 0">-->
-<!--                <div class="empty-state">-->
-<!--                    <h2>No TODOs</h2>-->
-<!--                </div>-->
-<!--            </template>-->
-            <template x-for="item in todos" :key="item.id">
-                <div
-                        x-data="{ show: false }"
-                        x-init="$nextTick(() => { show = true })"
-                        x-show="show"
-                        x-transition:enter="enter"
-                        x-transition:enter-start="enter-start"
-                        x-transition:enter-end="enter-end"
-                        class="list__item"
-                >
-                    <h2 x-text="item.title"></h2>
-                    <label><input :checked="item.completed" type="checkbox" /></label>
+        <div class="card list-container">
+            <template x-if="todos.length == 0">
+                <div class="empty-state">
+                    <h2>All caught up!</h2>
+                </div>
+            </template>
+            <template x-if="todos.length > 0">
+                <div class="list">
+                    <template x-for="item in todos" :key="item.id">
+                        <div
+                                x-data="{ show: false }"
+                                x-init="$nextTick(() => { show = true })"
+                                x-show="show"
+                                x-transition:enter="enter"
+                                x-transition:enter-start="enter-start"
+                                x-transition:enter-end="enter-end"
+                                x-transition:leave="leave"
+                                x-transition:leave-start="leave-start"
+                                x-transition:leave-end="leave-end"
+                                class="list-item"
+                        >
+                            <h2 x-text="item.title"></h2>
+                            <label><input :checked="item.completed" type="checkbox" /></label>
+                        </div>
+                    </template>
                 </div>
             </template>
         </div>
@@ -226,7 +263,7 @@
                         }
                     "
                     type="text"
-                    placeholder="Add TODO..."
+                    placeholder="Walk the dog..."
                 >
             </label>
             <button
