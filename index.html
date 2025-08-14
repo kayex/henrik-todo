@@ -27,6 +27,8 @@
             color: var(--color-text);
         }
 
+        [x-cloak] { display: none !important; }
+
         body {
             background-color: var(--color-bg);
             display: flex;
@@ -39,6 +41,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-bottom: 3rem;
         }
 
         h1 {
@@ -54,7 +57,7 @@
             display: inline-block;
             font-size: 0.875rem;
             font-weight: 500;
-            letter-spacing: .08em;
+            letter-spacing: .04em;
             color: var(--color-text-secondary);
         }
 
@@ -80,7 +83,6 @@
         }
 
         .list-container {
-            margin-top: 3rem;
             margin-bottom: 1.5rem;
             height: 16.8rem;
             overflow-y: scroll;
@@ -206,32 +208,44 @@
             margin-top: 2px;
         }
 
-        .enter {
+        .list-enter {
             transition: all 0.3s ease-out;
         }
 
-        .enter-start {
+        .list-enter-start {
+            opacity: 0;
+        }
+
+        .list-enter-end {
+            opacity: 1;
+        }
+
+        .list-item-enter {
+            transition: all 0.3s ease-out;
+        }
+
+        .list-item-enter-start {
             opacity: 0;
             transform: translateY(8px);
         }
 
-        .enter-end {
+        .list-item-enter-end {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .leave {
+        .list-item-leave {
             transition-property: opacity, transform;
             transition-duration: 200ms;
             transition-timing-function: cubic-bezier(.4, 0, 1, 1);
         }
 
-        .leave-start {
+        .list-item-leave-start {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .leave-end {
+        .list-item-leave-end {
             opacity: 0;
             transform: translateY(-8px);
         }
@@ -239,20 +253,24 @@
         @media only screen and (max-width: 480px) {
             .container {
                 flex-grow: 0;
-                margin-top: .25rem;
+                margin-top: 2rem;
             }
 
-            .header > .underline {
-                display: none;
+            .header {
+                margin-bottom: 2rem;
             }
 
-            .header > h1 {
-                margin-bottom: 0;
-            }
+            /*.header > .underline {*/
+            /*    display: none;*/
+            /*}*/
 
-            .header > h3 {
-                margin-top: 0;
-            }
+            /*.header > h1 {*/
+            /*    margin-bottom: 0;*/
+            /*}*/
+
+            /*.header > h3 {*/
+            /*    margin-top: 0;*/
+            /*}*/
 
             .list-container {
                 height: auto;
@@ -281,7 +299,14 @@
                 <h3 x-text="todos.length + ' items'"></h3>
             </template>
         </div>
-        <div class="card list-container">
+        <div
+            x-cloak
+            x-show="todos.length > 0"
+            class="card list-container"
+            x-transition:enter="list-enter"
+            x-transition:enter-start="list-enter-start"
+            x-transition:enter-end="list-enter-end"
+        >
             <template x-if="todos.length == 0">
                 <div class="empty-state">
                     <h2>All caught up!</h2>
@@ -291,16 +316,16 @@
                 <div class="list">
                     <template x-for="item in todos" :key="item.id">
                         <div
+                                class="list-item"
                                 x-data="{ show: false }"
                                 x-init="$nextTick(() => { show = true })"
                                 x-show="show"
-                                x-transition:enter="enter"
-                                x-transition:enter-start="enter-start"
-                                x-transition:enter-end="enter-end"
-                                x-transition:leave="leave"
-                                x-transition:leave-start="leave-start"
-                                x-transition:leave-end="leave-end"
-                                class="list-item"
+                                x-transition:enter="list-item-enter"
+                                x-transition:enter-start="list-item-enter-start"
+                                x-transition:enter-end="list-item-enter-end"
+                                x-transition:leave="list-item-leave"
+                                x-transition:leave-start="list-item-leave-start"
+                                x-transition:leave-end="list-item-leave-end"
                         >
                             <h2 x-text="item.title"></h2>
                             <label><input :checked="item.completed" type="checkbox" /></label>
