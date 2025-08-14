@@ -27,8 +27,6 @@
             color: var(--color-text);
         }
 
-        [x-cloak] { display: none !important; }
-
         body {
             background-color: var(--color-bg);
             display: flex;
@@ -300,7 +298,6 @@
             </template>
         </div>
         <div
-            x-cloak
             x-show="todos.length > 0"
             class="card list-container"
             x-transition:enter="list-enter"
