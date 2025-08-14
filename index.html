@@ -18,6 +18,7 @@
             --color-card: #fff;
             --color-primary: #282828;
             --color-text: #202020;
+            --color-text-secondary: #404040;
             --color-text-muted: #989898;
         }
 
@@ -42,6 +43,15 @@
             letter-spacing: .08em;
         }
 
+        h3 {
+            margin: .5rem 0 0;
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: .08em;
+            color: var(--color-text-secondary);
+        }
+
         .underline {
             width: 150px;
             height: 3px;
@@ -64,9 +74,9 @@
         }
 
         .list-container {
-            margin-top: 3.4375rem;
+            margin-top: 3rem;
             margin-bottom: 1.5rem;
-            height: 25.5rem;
+            height: 16.8rem;
             overflow-y: scroll;
             scrollbar-width: none;
         }
@@ -76,6 +86,7 @@
         }
 
         .empty-state {
+            /*height: 4.5rem;*/
             height: 100%;
             width: 100%;
             display: flex;
@@ -224,6 +235,15 @@
     <div class="container" x-data="{input: '', todos: []}">
         <h1>TODO</h1>
         <div class="underline"></div>
+        <template x-if="todos.length == 0">
+            <h3>No items</h3>
+        </template>
+        <template x-if="todos.length == 1">
+            <h3>1 item</h3>
+        </template>
+        <template x-if="todos.length > 1">
+            <h3 x-text="todos.length + ' items'"></h3>
+        </template>
         <div class="card list-container">
             <template x-if="todos.length == 0">
                 <div class="empty-state">
