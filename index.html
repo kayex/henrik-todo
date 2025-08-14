@@ -33,7 +33,6 @@
             justify-content: center;
             align-items: center;
             font-family: "Lato", sans-serif;
-            overscroll-behavior: none;
         }
 
         h1 {
@@ -86,7 +85,6 @@
             height: 16.8rem;
             overflow-y: scroll;
             scrollbar-width: none;
-            overscroll-behavior: initial;
         }
 
         .list {
@@ -241,17 +239,17 @@
 </head>
 <body>
     <div class="container" x-data="{input: '', todos: []}">
-        <h1>TODO</h1>
-        <div class="underline"></div>
-        <template x-if="todos.length == 0">
-            <h3>No items</h3>
-        </template>
-        <template x-if="todos.length == 1">
-            <h3>1 item</h3>
-        </template>
-        <template x-if="todos.length > 1">
-            <h3 x-text="todos.length + ' items'"></h3>
-        </template>
+<!--        <h1>TODO</h1>-->
+<!--        <div class="underline"></div>-->
+<!--        <template x-if="todos.length == 0">-->
+<!--            <h3>No items</h3>-->
+<!--        </template>-->
+<!--        <template x-if="todos.length == 1">-->
+<!--            <h3>1 item</h3>-->
+<!--        </template>-->
+<!--        <template x-if="todos.length > 1">-->
+<!--            <h3 x-text="todos.length + ' items'"></h3>-->
+<!--        </template>-->
         <div class="card list-container">
             <template x-if="todos.length == 0">
                 <div class="empty-state">
